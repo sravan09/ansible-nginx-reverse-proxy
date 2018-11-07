@@ -1,0 +1,5 @@
+---
+- hosts: ngnix 
+  remote_user: root
+  roles:
+    - nginx-reverse-proxy

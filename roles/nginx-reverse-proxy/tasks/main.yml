@@ -1,0 +1,31 @@
+---
+
+- name: Install nginx and httpd-tools
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ packages }}"
+
+- name: Install pexpect
+  pip:
+    name: pexpect
+    state: latest
+
+- name: set up username and password
+  expect:
+    command: htpasswd -c /etc/nginx/.htpasswd "{{ username }}"
+    responses:
+      New password:: "{{ password }}"
+      Re-type new password: "{{ password }}"
+
+- name: allow nginx to listen on tcp port {{ nginx_web_port }}
+  command: semanage port -a -t http_port_t  -p tcp "{{ nginx_web_port }}"
+  register: result
+  failed_when: "'FAILED' in result.stderr"
+
+- name: modify nginx configurations
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - restart nginx

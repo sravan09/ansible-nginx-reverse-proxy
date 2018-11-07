@@ -1,0 +1,10 @@
+---
+packages:
+  - httpd-tools
+  - nginx
+  - python-pip
+username: admin
+password: changeme
+secrets_path: /etc/nginx/.htpasswd
+redirection_web_port: 8081
+nginx_web_port: 8082

@@ -1,0 +1,10 @@
+galaxy_info:
+  author: Sravan Kumar Tammineni
+  description: Installs and configures Nginx as reverse proxy, enables basic authentication 
+  min_ansible_version: 2.2
+  platforms:
+    - name: Red Hat
+      versions:
+        - all
+  galaxy_tags: []
+dependencies: []
